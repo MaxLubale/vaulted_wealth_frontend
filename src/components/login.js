@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginForm.css'; 
+import './LoginForm.css';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ const LoginForm = () => {
   });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [ setUserData] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,7 +48,6 @@ const LoginForm = () => {
       setLoading(false);
     }
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -93,7 +92,6 @@ const LoginForm = () => {
     <div className="login-form-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        {/* Add your existing form fields here */}
         <div className="centered-input">
           <label>
             Username:
