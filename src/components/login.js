@@ -26,16 +26,19 @@ const LoginForm = () => {
       });
   
       if (userResponse.ok) {
-        const responseData = await userResponse.text();
+        // Check if the response has a content type of JSON before attempting to parse
+        const contentType = userResponse.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const userData = await userResponse.json();
+          console.log('User data:', userData);
   
-        // Check if response data is not empty before parsing JSON
-        const userData = responseData ? JSON.parse(responseData) : null;
-  
-        console.log('User data:', userData);
-  
-        // Update the user data state and navigate to the user dashboard
-        setUserData(userData.user);
-        navigate(`/dashboard/${userId}`);
+          // Update the user data state and navigate to the user dashboard
+          setUserData(userData.user);
+          navigate(`/dashboard/${userId}`);
+        } else {
+          console.error('Invalid or empty JSON response');
+          setErrorMessage('Error fetching user data.');
+        }
       } else {
         console.error('Error fetching user data:', userResponse.statusText);
   
@@ -52,7 +55,6 @@ const LoginForm = () => {
       setLoading(false);
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
