@@ -24,17 +24,21 @@ const LoginForm = () => {
           'Content-Type': 'application/json',
         },
       });
-
+  
       if (userResponse.ok) {
-        const userData = await userResponse.json();
+        const responseData = await userResponse.text();
+  
+        // Check if response data is not empty before parsing JSON
+        const userData = responseData ? JSON.parse(responseData) : null;
+  
         console.log('User data:', userData);
-
+  
         // Update the user data state and navigate to the user dashboard
         setUserData(userData.user);
         navigate(`/dashboard/${userId}`);
       } else {
         console.error('Error fetching user data:', userResponse.statusText);
-
+  
         if (userResponse.status === 500) {
           setErrorMessage('Internal Server Error. Please try again later.');
         } else {
@@ -48,14 +52,15 @@ const LoginForm = () => {
       setLoading(false);
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       setLoading(true);
       setErrorMessage('');
-
+  
       const response = await fetch('/login', {
         method: 'POST',
         headers: {
@@ -63,26 +68,27 @@ const LoginForm = () => {
         },
         body: JSON.stringify(formData),
       });
-
+  
       if (!response.ok) {
-        throw new Error(`Login failed with status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(`Login failed: ${errorData.error}`);
       }
-
+  
       const data = await response.json();
-
+  
       if (!data.user || !data.user.id) {
         throw new Error('User ID not found in the response.');
       }
-
+  
       // Fetch user data after successful login
       handleLoginSuccess(data.user.id);
     } catch (error) {
       console.error('Login failed', error);
-
+  
       if (error instanceof SyntaxError && error.message === 'Unexpected end of JSON input') {
         setErrorMessage('Unexpected end of JSON input. Please check your server response.');
       } else {
-        setErrorMessage('Something went wrong. Please try again.');
+        setErrorMessage(error.message || 'Something went wrong. Please try again.');
       }
     } finally {
       setLoading(false);
