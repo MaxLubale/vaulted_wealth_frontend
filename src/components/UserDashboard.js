@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import UserAccountsPage from './UserAccountsPage';
 import'./UserDashboard.css'
 
 const UserDashboard = () => {
   const { userId } = useParams();
-  const navigate = useNavigate(); 
+   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -42,12 +42,7 @@ const UserDashboard = () => {
     fetchUserData();
   }, [userId]);
 
-  // Handle logout function
-  const handleLogout = () => {
-    // Add logic to perform logout actions (clear tokens, etc.)
-    // For now, let's just redirect to the login page
-    navigate('/');
-  };
+
 
   return (
     <div className='.container '>

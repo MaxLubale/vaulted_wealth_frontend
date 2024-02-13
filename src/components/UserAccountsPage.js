@@ -73,15 +73,7 @@ const UserAccountsPage = ({ userId }) => {
     console.log(`Deleting transaction ${transactionId} for account ${accountId}`);
   };
 
-  // Function to delete an account
-  const handleDeleteAccount = (accountId) => {
-    // Implement the logic to delete the account here
-    // Update the accounts state accordingly
-    console.log(`Deleting account ${accountId}`);
-
-    // Set success message for account deletion
-    setSuccessMessage(`Account deleted successfully`);
-  };
+  
 
   return (
     <div className="container">

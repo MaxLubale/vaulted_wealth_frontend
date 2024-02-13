@@ -17,7 +17,7 @@ const ServicesPage = () => {
       {/* Container for displaying an image */}
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '20px' }}>
        <img
-      src="https://images.pexels.com/photos/8353796/pexels-photo-8353796.jpeg?auto=compress&cs=tinysrgb&w=800"  
+      src="https://images.pexels.com/photos/8353796/pexels-photo-8353796.jpeg?auto=compress&cs=tinysrgb&w=800"   alt="pic"
        style={{ maxWidth: '100%', height: 'auto', borderRadius: '10px' }}
       />
       </div>

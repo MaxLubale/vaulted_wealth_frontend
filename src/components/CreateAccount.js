@@ -58,7 +58,7 @@ const CreateAccount = () => {
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '20px' }}>
         <img
           src="https://images.pexels.com/photos/3833052/pexels-photo-3833052.jpeg?auto=compress&cs=tinysrgb&w=1000"  
-          alt="Your Image Alt Text"
+          alt="pic"
           style={{ maxWidth: '100%', height: 'auto', borderRadius: '10px' }}
         />
       </div>

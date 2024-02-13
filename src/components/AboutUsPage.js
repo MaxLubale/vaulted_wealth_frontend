@@ -8,7 +8,7 @@ const AboutUsPage = () => {
       <h2>Welcome to Vaulted Wealth, your trusted financial partner!</h2>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '20px' }}>
        <img
-      src="https://images.pexels.com/photos/534216/pexels-photo-534216.jpeg?auto=compress&cs=tinysrgb&w=1000"  
+      src="https://images.pexels.com/photos/534216/pexels-photo-534216.jpeg?auto=compress&cs=tinysrgb&w=1000"   alt="pic"
        style={{ maxWidth: '100%', height: 'auto', borderRadius: '10px' }}
       />
       </div>
