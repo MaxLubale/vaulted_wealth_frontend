@@ -26,11 +26,12 @@ const LoginForm = () => {
       });
   
       if (userResponse.ok) {
-        const contentType = userResponse.headers.get('content-type');
+        const responseText = await userResponse.text();
   
-        // Check if the response has a content type of JSON before attempting to parse
-        if (contentType && contentType.includes('application/json')) {
-          const userData = await userResponse.json();
+        // Check if the responseText is not empty before attempting to parse JSON
+        const userData = responseText ? JSON.parse(responseText) : null;
+  
+        if (userData) {
           console.log('User data:', userData);
   
           // Update the user data state and navigate to the user dashboard
