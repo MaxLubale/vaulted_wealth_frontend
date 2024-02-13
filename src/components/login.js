@@ -26,8 +26,9 @@ const LoginForm = () => {
       });
   
       if (userResponse.ok) {
-        // Check if the response has a content type of JSON before attempting to parse
         const contentType = userResponse.headers.get('content-type');
+  
+        // Check if the response has a content type of JSON before attempting to parse
         if (contentType && contentType.includes('application/json')) {
           const userData = await userResponse.json();
           console.log('User data:', userData);
