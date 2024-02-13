@@ -64,25 +64,26 @@ const LoginForm = () => {
         body: JSON.stringify(formData),
       });
 
+      if (!response.ok) {
+        throw new Error(`Login failed with status: ${response.status}`);
+      }
+
       const data = await response.json();
 
-      if (response.ok) {
-        console.log('Login successful:', data);
-
-        if (!data.user || !data.user.id) {
-          setErrorMessage('User ID not found in the response.');
-          return;
-        }
-
-        // Fetch user data after successful login
-        handleLoginSuccess(data.user.id);
-      } else {
-        console.error('Login failed:', data.message);
-        setErrorMessage(data.message || 'Login failed.');
+      if (!data.user || !data.user.id) {
+        throw new Error('User ID not found in the response.');
       }
+
+      // Fetch user data after successful login
+      handleLoginSuccess(data.user.id);
     } catch (error) {
       console.error('Login failed', error);
-      setErrorMessage('Something went wrong. Please try again.');
+
+      if (error instanceof SyntaxError && error.message === 'Unexpected end of JSON input') {
+        setErrorMessage('Unexpected end of JSON input. Please check your server response.');
+      } else {
+        setErrorMessage('Something went wrong. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
