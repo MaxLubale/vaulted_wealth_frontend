@@ -24,26 +24,17 @@ const LoginForm = () => {
           'Content-Type': 'application/json',
         },
       });
-  
+
       if (userResponse.ok) {
-        const responseText = await userResponse.text();
-  
-        // Check if the responseText is not empty before attempting to parse JSON
-        const userData = responseText ? JSON.parse(responseText) : null;
-  
-        if (userData) {
-          console.log('User data:', userData);
-  
-          // Update the user data state and navigate to the user dashboard
-          setUserData(userData.user);
-          navigate(`/dashboard/${userId}`);
-        } else {
-          console.error('Invalid or empty JSON response');
-          setErrorMessage('Error fetching user data.');
-        }
+        const userData = await userResponse.json();
+        console.log('User data:', userData);
+
+        // Update the user data state and navigate to the user dashboard
+        setUserData(userData.user);
+        navigate(`/dashboard/${userId}`);
       } else {
         console.error('Error fetching user data:', userResponse.statusText);
-  
+
         if (userResponse.status === 500) {
           setErrorMessage('Internal Server Error. Please try again later.');
         } else {
@@ -60,11 +51,11 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       setLoading(true);
       setErrorMessage('');
-  
+
       const response = await fetch('/login', {
         method: 'POST',
         headers: {
@@ -72,27 +63,26 @@ const LoginForm = () => {
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Login failed: ${errorData.error}`);
+        throw new Error(`Login failed with status: ${response.status}`);
       }
-  
+
       const data = await response.json();
-  
+
       if (!data.user || !data.user.id) {
         throw new Error('User ID not found in the response.');
       }
-  
+
       // Fetch user data after successful login
       handleLoginSuccess(data.user.id);
     } catch (error) {
       console.error('Login failed', error);
-  
+
       if (error instanceof SyntaxError && error.message === 'Unexpected end of JSON input') {
         setErrorMessage('Unexpected end of JSON input. Please check your server response.');
       } else {
-        setErrorMessage(error.message || 'Something went wrong. Please try again.');
+        setErrorMessage('Something went wrong. Please try again.');
       }
     } finally {
       setLoading(false);

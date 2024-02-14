@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <>
     
-    <div className="container">
+    <div >
       
 
       <h1>Welcome to Vaulted Wealth</h1>
@@ -72,7 +72,7 @@ const HomePage = () => {
       {/* Container for displaying an image */}
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '20px' }}>
        <img
-      src="https://images.pexels.com/photos/12920751/pexels-photo-12920751.jpeg?auto=compress&cs=tinysrgb&w=800"   alt="pic"
+      src="https://images.pexels.com/photos/128867/coins-currency-investment-insurance-128867.jpeg?auto=compress&cs=tinysrgb&w=800"   alt="pic"
        style={{ maxWidth: '100%', height: 'auto', borderRadius: '10px' }}
       />
       </div>

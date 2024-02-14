@@ -19,7 +19,7 @@
   }
   
   .button-container {
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
     margin-top: 20px; /* Add some margin to separate from the previous content */
   }
